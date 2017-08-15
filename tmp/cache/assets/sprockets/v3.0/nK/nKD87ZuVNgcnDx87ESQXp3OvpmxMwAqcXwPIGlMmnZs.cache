@@ -1,0 +1,31 @@
+I"Ì(function() {
+  var paintIt;
+
+  paintIt = function(element, link) {
+    return element.href = link;
+  };
+
+  $(function() {
+    return $("a[data-background-color]").click(function(e) {
+      var create_db_path_link, create_db_path_target, export_csv_path_link, export_csv_path_target, new_and_update_path_link, new_and_update_path_target, show_cam_path_link, show_cam_path_target, show_soc_path_link, show_soc_path_target;
+      e.preventDefault();
+      create_db_path_link = $(this).data("create_db_path");
+      show_cam_path_link = $(this).data("show_cam_path");
+      show_soc_path_link = $(this).data("show_soc_path");
+      new_and_update_path_link = $(this).data("new_and_update_path");
+      export_csv_path_link = $(this).data("export_csv_path");
+      create_db_path_target = document.getElementById("create_db_path_id");
+      show_cam_path_target = document.getElementById("show_cam_path_id");
+      show_soc_path_target = document.getElementById("show_soc_path_id");
+      new_and_update_path_target = document.getElementById("new_and_update_path_id");
+      export_csv_path_target = document.getElementById("export_csv_path_id");
+      paintIt(create_db_path_target, create_db_path_link);
+      paintIt(show_cam_path_target, show_cam_path_link);
+      paintIt(show_soc_path_target, show_soc_path_link);
+      paintIt(new_and_update_path_target, new_and_update_path_link);
+      return paintIt(export_csv_path_target, export_csv_path_link);
+    });
+  });
+
+}).call(this);
+:ET

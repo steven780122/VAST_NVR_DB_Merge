@@ -1,0 +1,68 @@
+<%= @soc_name_str %>
+
+<html>
+<head>
+
+  <head>
+
+  </head>
+  <%= stylesheet_link_tag 'application' %>
+
+</head>
+<body>
+
+<table border="2">
+  <tbody>
+  <tr>
+    <td>
+    </td>
+
+    <td>
+      SOC
+    </td>
+
+    <td>
+      Camera
+    </td>
+
+
+  </tr>
+
+  <% Camera.column_names.each do |column_name| %>
+
+      <!-- if the column is not necessary   -->
+      <% next if column_name == "id" || column_name == "created_at" || column_name == "updated_at" %>
+
+
+      <tr>
+        <td>
+          <%= column_name %>
+        </td>
+
+        <td>
+          <% db_soc_column_array = eval("@db_" + column_name) %>
+          <%= db_soc_column_array.join(',') %>
+        </td>
+
+        <td>
+          <!--use update_different_html_tag compare function to get updated html text-->
+          <% test_cam_column_array = eval("@test_cam_" + column_name) %>
+          <% final_test_cam_str = TestSocCamera.update_different_html_tag(db_soc_column_array, test_cam_column_array) %>
+          <%= raw final_test_cam_str %>
+        </td>
+      <tr>
+
+  <% end %>
+
+  </tbody>
+</table>
+
+
+<div>
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+</body>
+</html>

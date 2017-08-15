@@ -1,0 +1,119 @@
+<%# CameraOtherInfo.all.each do |cam_other_info| %>
+
+    <%#= cam_other_info["Model_FW_name"] %>
+    <!--<br>-->
+<%# end %>
+<h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+
+<div class="center_item">
+
+
+  <% if @import_update_cameras %>
+      <b>The Cameras in Database are:</b>
+      <%= select_tag :model_name_list, options_for_select(@new_import_model_name_array.sort!) %>
+
+      <!---->
+      <!--<b>The Camera you import is:</b>-->
+      <!--<%# @import_update_cameras.each do |to_update_camera| %>-->
+          <%#= to_update_camera["Model_FW_name"] %>
+      <!--<%# end %>-->
+  <% end %>
+  <br><br>
+
+  <!---------------------for test----------------------------->
+
+  <!--by keyword-->
+  <%= form_tag update_cam_other_info_index_cct_nvr_db_cameras_path, :method => 'get' do %>
+      <!--select SOC-->
+      <li>
+        <p>Search Database Camera (by Soc):<span class="tab"></span>
+          <%= select_tag :search_by_soc_option, options_for_select(@soc_array) %>
+          <%#= text_field_tag :search_update_cam_by_keyword, params[:search_update_cam_by_keyword] %>
+          <br>
+          <%= submit_tag "Search", class:'normal_button', data: { disable_with: "Please wait.." }, :name => nil %>
+        </p>
+      </li>
+      <br>
+  <% end %>
+
+
+  <!-------------------------------------------------->
+
+
+  <!--by keyword-->
+  <%= form_tag update_cam_other_info_index_cct_nvr_db_cameras_path, :method => 'get' do %>
+      <!--select SOC-->
+      <li>
+        <p>Search Database Camera (by Keyword):<span class="tab"></span>
+          <%= text_field_tag :search_update_cam_by_keyword, params[:search_update_cam_by_keyword] %>
+          <br>
+          <%= submit_tag "Search", class:'normal_button', data: { disable_with: "Please wait.." }, :name => nil %>
+        </p>
+      </li>
+      <br>
+  <% end %>
+
+  <!--check result-->
+  <% if @selected_keyword_models %>
+      ----------------------------------------------------------------------------------------------------
+      <br>
+      <em style="color: mediumblue">Search Results:</em>
+      <br>
+
+      <div id="tableContainer" class="tableContainer">
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="scrollTable">
+
+          <thead class="fixedHeader">
+
+            <tr>
+              <th>Model</th>
+              <th>Soc</th>
+              <th>Checkbox</th>
+            </tr>
+
+          </thead>
+
+          <tbody class="scrollContent">
+
+            <%= form_tag update_cam_other_info_cct_nvr_db_cameras_path, :method => 'get' do %>
+
+                <% @selected_keyword_models.each do |camera| %>
+                    <% model_fw_name_str = camera["Model_FW_name"] %>
+                    <tr>
+                      <td><%= model_fw_name_str %></td>
+                      <td><%= camera["Soc"] %></td>
+                      <td><%= check_box_tag 'check_box_ids_array[]' , camera.id %></td>
+
+                    </tr>
+
+                <% end %>
+
+                <tr>
+                  <td>
+                    <%= submit_tag "Next", class:'normal_button', data: { disable_with: "Please wait.." }, :name => nil %>
+                  </td>
+                </tr>
+
+            <% end %>
+
+
+          </tbody>
+
+        </table>
+
+
+      </div>
+
+
+  <% end %>
+  
+</div>
+
+<div class="round-button">
+  <a href=<%= new_and_update_cam_info_index_cct_nvr_db_cameras_path %>>
+    Back
+  </a>
+</div>
+
+

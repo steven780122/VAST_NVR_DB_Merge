@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <head>
+
+  </head>
+  <%= stylesheet_link_tag 'application' %>
+
+</head>
+<body>
+<h1>VAST Device Pack 資料庫 2.0<span>Serach、SOC Compare &amp; Update</span></h1>
+
+<div class=" middle_height">
+  <div class="center_item" >
+
+    <h1 style="bottom:50%">Import Success!!!</h1>
+    <% if !@other_info_not_existed_array.empty? %>
+
+        <b style="color: red">Warning!! The following camera other info's models are not in camera info!</b>
+        <br>
+        <br>
+        <% @other_info_not_existed_array.each do |not_existed_camera_other_info|  %>
+
+            <%= not_existed_camera_other_info %>,
+
+        <% end %>
+
+        <br>
+        <br>
+        <b>Please remember to import camera other info csv. later!!</b>
+    <% end %>
+  </div>
+
+</div>
+
+<div class="round-button">
+  <a href=<%= create_database_index_cct_vast_db_cameras_path %>>
+    Back
+  </a>
+</div>
+
+</body>
+</html>

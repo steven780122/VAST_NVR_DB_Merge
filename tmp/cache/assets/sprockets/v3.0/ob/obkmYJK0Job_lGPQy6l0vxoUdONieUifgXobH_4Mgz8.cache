@@ -1,0 +1,13 @@
+I"Z(function() {
+  $(function() {
+    return $("a[data-background-color]").click(function(e) {
+      var backgroundColor, textColor;
+      e.preventDefault();
+      backgroundColor = $(this).data("background-color");
+      textColor = $(this).data("text-color");
+      return paintIt(this, backgroundColor, textColor);
+    });
+  });
+
+}).call(this);
+:ET

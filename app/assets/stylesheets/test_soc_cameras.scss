@@ -1,0 +1,41 @@
+// Place all the styles related to the test_soc_cameras controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+table tr td
+{
+  table-layout: fixed;
+  width: 50px;
+  //padding: 1px;
+  vertical-align: top;
+  border-style:solid;
+  border-width: 1px;
+  border-color: black;
+}
+
+table td
+{
+  table-layout:fixed;
+  width:20px;
+  overflow:hidden;
+  word-wrap:break-word;
+}
+
+.different_element
+{
+  color: red;
+  font-weight: bold;
+}
+
+.different_empty
+{
+  background-color: #CCCCCC;
+}
+
+.center_item
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,67 @@
+<% selected_camera_fw = Camera.find_by_CameraModel(@camera_model_fw_name) %>
+
+<!--because other info may have multi-data with same CameraModel-->
+<% selected_camera_other_fw_s = CameraOtherInfo.where(:CameraModel => @camera_model_fw_name) %>
+
+<table border="2">
+  <tbody>
+
+  <tr><%= selected_camera_fw.CameraModel %></tr>
+
+  <tr>
+    <td>Soc</td>
+    <td><%= selected_camera_fw.Soc %></td>
+  <tr>
+
+
+    <% selected_camera_fw.attributes.each do |attribute_name, attribute_value|%>
+      <tr>
+        <td><%= attribute_name %></td>
+        <td><%= attribute_value %></td>
+      <tr>
+  <% end %>
+
+  </tbody>
+</table>
+
+
+<table border="2">
+  <tbody>
+
+  <tr>Other Info:</tr>
+
+  <tr>
+    <td>Soc</td>
+    <td><%= selected_camera_fw.Soc %></td>
+  <tr>
+    <% selected_camera_other_fw_s.each do |selected_camera_other_fw| %>
+
+        <% selected_camera_other_fw.attributes.each do |attribute_name, attribute_value|%>
+          <tr>
+            <td><%= attribute_name %></td>
+            <td><%= attribute_value %></td>
+          <tr>
+
+
+      <% end %>
+
+      <tr class = blank_row><td colspan="2"></td>
+      </tr>
+
+  <% end %>
+
+  </tbody>
+</table>
+
+<br>
+<br>
+<br> <br> <br> <br> <br> <br>
+
+
+
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>

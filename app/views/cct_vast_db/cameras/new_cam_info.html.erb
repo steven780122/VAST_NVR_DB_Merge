@@ -1,0 +1,159 @@
+<% require 'open-uri' %>
+<h1>VAST Device Pack 資料庫 2.0<span>Serach、SOC Compare &amp; Update</span></h1>
+<!--by keyword-->
+<% if @checked_model_array %>
+    <div class="container_for_cam_update">
+      <!---->
+      <div>
+        <!--get every db's column name-->
+        <%# camera_db_columns_array = Camera.column_names %>
+
+
+        <% cam_add_obj_array = [] %>
+        <% @cam_add_targets.each_with_index { |model_name_obj, model_index | cam_add_obj_array[model_index] = model_name_obj} %>
+        <% new_cam_id_array = [] %>
+
+
+        <table class="show_table">
+
+          <thead>
+          <td></td>
+
+          <td class="import_camera_title" colspan="<%= @cam_add_targets.length.to_s %>">
+            Import Selected Camera
+          </td>
+          </thead>
+
+          <tbody>
+
+          <!--camera name-->
+          <tr>
+            <td>Column Name</td>
+
+            <% for index in 0..cam_add_obj_array.length-1 %>
+                <td><%= cam_add_obj_array[index]["CameraModel"] %></td>
+
+                <% Rails.logger.debug("TEST new cam id ori HASH!!: #{cam_add_obj_array[index].id.inspect}") %>
+
+
+                <% new_cam_id_array.append(cam_add_obj_array[index].id) %>
+
+            <% end %>
+
+          </tr>
+
+
+          <!--camera info-->
+          <% CctVastDb::Camera.column_names.each do |column_name| %>
+          <tr>
+            <td>
+              <%= column_name %>
+            </td>
+
+            <% for index in 0..cam_add_obj_array.length-1 %>
+                <td><%= cam_add_obj_array[index][column_name] %></td>
+            <% end %>
+
+          </tr>
+
+          <% end %>
+
+          </tbody>
+
+        </table>
+      </div>
+
+
+      <div class="flex-column" style="margin-left: 25px">
+
+        <br>
+        <br>
+
+        <!-------------------------------------------------------------------------------------------------->
+        <!--For Test!!-->
+        <section>
+          <em style="color: mediumblue">Step1.</em>
+          <strong>Please select Soc:</strong>
+          <br><br>
+
+          <% Rails.logger.debug("TEST new cam id array ori HASH!!: #{new_cam_id_array.inspect}") %>  <!--OK-->
+          <% Rails.logger.debug("TEST cam add targets ori HASH!!: #{@cam_add_targets.inspect}") %>  <!--OK-->
+
+          <%= form_tag({:controller => 'cameras', :action => 'create'}, :method => :post) do %>    <!--OK-->
+
+              <%= select_tag :soc_option, options_for_select(@soc_array) %>
+              <%= hidden_field_tag 'new_cam_ids_str_array', new_cam_id_array %>
+
+              <br><br>
+              <em style="color: mediumblue">Step2.</em>
+              <strong>Create infos to DB:</strong>
+              <br><br>
+
+
+              <!--send time-->
+              <% start_new_cam_info_index_time = params[:start_new_cam_info_index_time].to_datetime %>
+              <% end_new_cam_info_time = Time.now %>
+              <% if start_new_cam_info_index_time < end_new_cam_info_time %>
+                  <% time_diff = end_new_cam_info_time - start_new_cam_info_index_time %>
+                  <% url = "http://172.19.16.106/toolkits/add_record?name=VAST_DevicePack_Database_2.0&function="+ "new_cam_info" + "&duration=" + time_diff.to_s %>
+                  <% open(url) {|io| io.read} %>
+              <% end %>
+
+              <%= button_to "NEW to DB !!", {}, class:'normal_button',
+                            data: { confirm: '將新增進DB，若model已存在DB將不作用，確定執行？' } %>
+
+          <% end %>
+        </section>
+
+        <br>
+        <br>
+
+<!-------------------------------------------------------------------------------------------------->
+        <!--<section>-->
+
+          <%#= form_tag({:controller => 'cameras', :action => 'create'}, :method => :post) do %>    <!--OK-->
+
+              <!--<%#= select_tag :soc_option, options_for_select(@soc_array) %>-->
+
+              <%# cam_to_add_test_hash_array =
+                     ShowCamInfoAndUpdate.get_selected_to_add_cam_hash_array(@cam_add_targets, params[:search_soc]) %>
+
+
+              <!--<%# cam_to_add_test_hash_array.each do |cam_add_hash| %>-->
+
+                  <!--<%# cam_add_hash.each do |key, value| %>-->
+
+                        <!--<%#= hidden_field_tag "test_add_array[][#{key}]", value %>-->
+
+                      <!--<%# end %>-->
+
+              <!--<%# end %>-->
+
+              <%#= button_to "NEW to DB !!", {}, class:'normal_button',
+                            data: { confirm: '將新增進DB，若model已存在DB將不作用，確定執行？' } %>
+
+          <!--<%# end %>-->
+
+        <!--</section>-->
+      </div>
+
+      <!--if not any model in db,ach_with_index new here!-->
+<% else %>
+    <div>
+      not in db!!
+    </div>
+<% end %>
+
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+</div>

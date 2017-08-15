@@ -1,0 +1,547 @@
+// Place all the styles related to the cameras controller here.
+
+/* Terence Ordona, portal[AT]imaputz[DOT]com         */
+/* http://creativecommons.org/licenses/by-sa/2.0/    */
+
+/* begin some basic styling here                     */
+/////////////////////////////for table////////////////////////////////////////////
+
+
+.show_table
+{
+  table-layout: fixed;
+  width: 900px;
+}
+
+.different_element
+{
+  color: red;
+  font-weight: bold;
+}
+
+
+//
+body {
+  background: #FFF;
+  color: #000;
+  font: normal normal 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  margin: 10px;
+  padding: 0
+}
+
+table, td, a {
+  color: #000;
+  font: normal normal 12px Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+
+h1 {
+  font: normal normal 18px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  margin: 0 0 5px 0
+}
+
+h2 {
+  font: normal normal 16px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  margin: 0 0 5px 0
+}
+
+h3 {
+  font: normal normal 13px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: #008000;
+  margin: 0 0 15px 0
+}
+/* end basic styling                                 */
+
+/* define height and width of scrollable area. Add 16px to width for scrollbar          */
+div.tableContainer {
+  clear: both;
+  border: 1px solid #963;
+  height: 285px;
+  overflow: auto;
+  width: 756px
+}
+
+/* Reset overflow value to hidden for all non-IE browsers. */
+html>body div.tableContainer {
+  overflow: hidden;
+  width: 756px
+}
+
+/* define width of table. IE browsers only                 */
+div.tableContainer table {
+  float: left;
+  width: 740px
+}
+
+/* define width of table. Add 16px to width for scrollbar.           */
+/* All other non-IE browsers.                                        */
+html>body div.tableContainer table {
+  width: 756px
+}
+
+/* set table header to a fixed position. WinIE 6.x only                                       */
+/* In WinIE 6.x, any element with a position property set to relative and is a child of       */
+/* an element that has an overflow property set, the relative value translates into fixed.    */
+/* Ex: parent element DIV with a class of tableContainer has an overflow property set to auto */
+thead.fixedHeader tr {
+  position: relative
+}
+
+/* set THEAD element to have block level attributes. All other non-IE browsers            */
+/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+html>body thead.fixedHeader tr {
+  display: block
+}
+
+/* make the TH elements pretty */
+thead.fixedHeader th {
+  background: #C96;
+  border-left: 1px solid #EB8;
+  border-right: 1px solid #B74;
+  border-top: 1px solid #EB8;
+  font-weight: normal;
+  padding: 4px 3px;
+  text-align: left
+}
+
+/* make the A elements pretty. makes for nice clickable headers                */
+thead.fixedHeader a, thead.fixedHeader a:link, thead.fixedHeader a:visited {
+  color: #FFF;
+  display: block;
+  text-decoration: none;
+  width: 100%
+}
+
+/* make the A elements pretty. makes for nice clickable headers                */
+/* WARNING: swapping the background on hover may cause problems in WinIE 6.x   */
+thead.fixedHeader a:hover {
+  color: #FFF;
+  display: block;
+  text-decoration: underline;
+  width: 100%
+}
+
+/* define the table content to be scrollable                                              */
+/* set TBODY element to have block level attributes. All other non-IE browsers            */
+/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+/* induced side effect is that child TDs no longer accept width: auto                     */
+html>body tbody.scrollContent {
+  display: block;
+  height: 262px;
+  overflow: auto;
+  width: 100%
+}
+
+/* make TD elements pretty. Provide alternating classes for striping the table */
+/* http://www.alistapart.com/articles/zebratables/                             */
+tbody.scrollContent td, tbody.scrollContent tr.normalRow td {
+  background: #FFF;
+  border-bottom: none;
+  border-left: none;
+  border-right: 1px solid #CCC;
+  border-top: 1px solid #DDD;
+  padding: 2px 3px 3px 4px
+}
+
+tbody.scrollContent tr.alternateRow td {
+  background: #EEE;
+  border-bottom: none;
+  border-left: none;
+  border-right: 1px solid #CCC;
+  border-top: 1px solid #DDD;
+  padding: 2px 3px 3px 4px
+}
+
+/* define width of TH elements: 1st, 2nd, and 3rd respectively.          */
+/* Add 16px to last TH for scrollbar padding. All other non-IE browsers. */
+/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+html>body thead.fixedHeader th {
+  width: 200px
+}
+
+html>body thead.fixedHeader th + th {
+  width: 240px
+}
+
+html>body thead.fixedHeader th + th + th {
+  width: 316px
+}
+
+/* define width of TD elements: 1st, 2nd, and 3rd respectively.          */
+/* All other non-IE browsers.                                            */
+/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+html>body tbody.scrollContent td {
+  width: 200px
+}
+
+html>body tbody.scrollContent td + td {
+  width: 240px
+}
+
+html>body tbody.scrollContent td + td + td {
+  width: 300px
+}
+
+
+////////////////////////////////////////////////////////////////////
+
+.notice_item{
+  font-size: xx-large;
+  color: red;
+}
+
+//
+
+
+.thead_value_different
+{
+  color: red;
+  font-weight: bold;
+  //background-color: lightslategray;
+}
+
+.tbody_title
+{
+  background-color: lightslategray;
+}
+
+
+.normal_button {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 5px 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.to_update_column
+{
+  color: #207cca;
+
+}
+
+.import_camera_title
+{
+  background-color: #333333;
+}
+
+.value_different
+{
+  color: red;
+  //background-color: #CCCCCC;
+}
+
+span.tab{
+  padding:  20px;
+}
+
+//for update cam info "flexbox"
+.container_for_cam_update {
+  display: -webkit-flex;
+  display: flex;
+}
+nav {
+  width: 200px;
+}
+.flex-column {
+  -webkit-flex: 1;
+  flex: 1;
+}
+//
+
+
+#left
+{
+  float: left;
+  margin-right: 50px;   //space between two div
+
+}
+
+#middle
+{
+  float: left;
+  margin-right: 50px;   //space between two div
+}
+
+#right
+{
+  float: left;
+}
+//
+.centered {
+  margin: 0 auto;
+  text-align: left;
+  width: 800px;
+}
+
+//for middle item
+.center_item
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.myFile {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  clear: left;
+}
+.myFile input[type="file"] {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  font-size: 100px;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+
+//
+.CSSTableGenerator {
+  margin:0px;padding:0px;
+  width:100%;
+  box-shadow: 10px 10px 5px #888888;
+  border:1px solid #000000;
+
+  -moz-border-radius-bottomleft:13px;
+  -webkit-border-bottom-left-radius:13px;
+  border-bottom-left-radius:13px;
+
+  -moz-border-radius-bottomright:13px;
+  -webkit-border-bottom-right-radius:13px;
+  border-bottom-right-radius:13px;
+
+  -moz-border-radius-topright:13px;
+  -webkit-border-top-right-radius:13px;
+  border-top-right-radius:13px;
+
+  -moz-border-radius-topleft:13px;
+  -webkit-border-top-left-radius:13px;
+  border-top-left-radius:13px;
+}.CSSTableGenerator table{
+   border-collapse: collapse;
+   border-spacing: 0;
+   width:100%;
+   height:100%;
+   margin:0px;padding:0px;
+ }.CSSTableGenerator tr:last-child td:last-child {
+    -moz-border-radius-bottomright:13px;
+    -webkit-border-bottom-right-radius:13px;
+    border-bottom-right-radius:13px;
+  }
+.CSSTableGenerator table tr:first-child td:first-child {
+  -moz-border-radius-topleft:13px;
+  -webkit-border-top-left-radius:13px;
+  border-top-left-radius:13px;
+}
+.CSSTableGenerator table tr:first-child td:last-child {
+  -moz-border-radius-topright:13px;
+  -webkit-border-top-right-radius:13px;
+  border-top-right-radius:13px;
+}.CSSTableGenerator tr:last-child td:first-child{
+   -moz-border-radius-bottomleft:13px;
+   -webkit-border-bottom-left-radius:13px;
+   border-bottom-left-radius:13px;
+ }.CSSTableGenerator tr:hover td{
+
+  }
+.CSSTableGenerator tr:nth-child(odd){ background-color:#e5e5e5; }
+.CSSTableGenerator tr:nth-child(even)    { background-color:#ffffff; }.CSSTableGenerator td{
+                                                                        vertical-align:middle;
+
+
+                                                                        border:1px solid #000000;
+                                                                        border-width:0px 1px 1px 0px;
+                                                                        text-align:left;
+                                                                        padding:7px;
+                                                                        font-size:10px;
+                                                                        font-family:Arial;
+                                                                        font-weight:normal;
+                                                                        color:#000000;
+                                                                      }.CSSTableGenerator tr:last-child td{
+                                                                         border-width:0px 1px 0px 0px;
+                                                                       }.CSSTableGenerator tr td:last-child{
+                                                                          border-width:0px 0px 1px 0px;
+                                                                        }.CSSTableGenerator tr:last-child td:last-child{
+                                                                           border-width:0px 0px 0px 0px;
+                                                                         }
+.CSSTableGenerator tr:first-child td{
+  background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
+  background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
+
+  background-color:#cccccc;
+  border:0px solid #000000;
+  text-align:center;
+  border-width:0px 0px 1px 1px;
+  font-size:14px;
+  font-family:Arial;
+  font-weight:bold;
+  color:#000000;
+}
+.CSSTableGenerator tr:first-child:hover td{
+  background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
+  background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
+
+  background-color:#cccccc;
+}
+.CSSTableGenerator tr:first-child td:first-child{
+  border-width:0px 0px 1px 0px;
+}
+.CSSTableGenerator tr:first-child td:last-child{
+  border-width:0px 0px 1px 1px;
+}
+
+//for back button
+.BackButton {
+  -moz-box-shadow: 3px 4px 0px 0px #899599;
+  -webkit-box-shadow: 3px 4px 0px 0px #899599;
+  box-shadow: 3px 4px 0px 0px #899599;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #6e6f7a));
+  background:-moz-linear-gradient(top, #ededed 5%, #6e6f7a 100%);
+  background:-webkit-linear-gradient(top, #ededed 5%, #6e6f7a 100%);
+  background:-o-linear-gradient(top, #ededed 5%, #6e6f7a 100%);
+  background:-ms-linear-gradient(top, #ededed 5%, #6e6f7a 100%);
+  background:linear-gradient(to bottom, #ededed 5%, #6e6f7a 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#6e6f7a',GradientType=0);
+  background-color:#ededed;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+  border-radius:15px;
+  border:1px solid #333333;
+  display:inline-block;
+  cursor:pointer;
+  color:#000000;
+  color:#000000;
+  font-family:cursive;
+  font-size:19px;
+  padding:5px 35px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #e1e2ed;
+}
+.BackButton:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6e6f7a), color-stop(1, #ededed));
+  background:-moz-linear-gradient(top, #6e6f7a 5%, #ededed 100%);
+  background:-webkit-linear-gradient(top, #6e6f7a 5%, #ededed 100%);
+  background:-o-linear-gradient(top, #6e6f7a 5%, #ededed 100%);
+  background:-ms-linear-gradient(top, #6e6f7a 5%, #ededed 100%);
+  background:linear-gradient(to bottom, #6e6f7a 5%, #ededed 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6e6f7a', endColorstr='#ededed',GradientType=0);
+  background-color:#6e6f7a;
+}
+.BackButton:active{
+  //position:relative;
+  top:1px;
+
+}
+
+//for search button
+.Text {
+  //width:50px;
+  padding:8px 150px;
+  margin:50px auto;
+}
+
+.Search{
+  padding:8px 15px;
+  background:rgba(50, 50, 50, 0.2);
+  border:0px solid #dbdbdb;
+}
+
+.SearchButton {
+  position:relative;
+  padding:6px 15px;
+  left:-8px;
+  border:2px solid #207cca;
+  background-color:#207cca;
+  color:#fafafa;
+}
+.SearchButton:hover  {
+  background-color:#fafafa;
+  color:#207cca;
+}
+
+//for import button
+
+
+.Red_Button {
+  //text-shadow:-1px -1px 0 #A84155;
+  color: white;
+  background: #D25068;
+  border:1px solid #D25068;
+  width: 100px;
+
+  background-image:-webkit-linear-gradient(top, #F66C7B, #D25068);
+  background-image:-moz-linear-gradient(top, #F66C7B, #D25068);
+  background-image:-ms-linear-gradient(top, #F66C7B, #D25068);
+  background-image:-o-linear-gradient(top, #F66C7B, #D25068);
+  background-image:linear-gradient(to bottom, #F66C7B, #D25068);
+
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:50px;
+
+  -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+  -moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+  box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.Red_Button:hover {
+  background: #F66C7B;
+  background-image:-webkit-linear-gradient(top, #D25068, #F66C7B);
+  background-image:-moz-linear-gradient(top, #D25068, #F66C7B);
+  background-image:-ms-linear-gradient(top, #D25068, #F66C7B);
+  background-image:-o-linear-gradient(top, #D25068, #F66C7B);
+  background-image:linear-gradient(top, #D25068, #F66C7B);
+}
+
+//for import home button
+.middle-bottom{
+  position:absolute;
+  bottom:0px;
+  right:0px;
+}
+
+.round-button {
+  display:block;
+  width:50px;
+  height:50px;
+  line-height:50px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-align:center;
+  text-decoration:none;
+  background: #464646;
+  box-shadow: 0 0 3px gray;
+  font-size:15px;
+  font-weight:bold;
+
+  position:fixed;
+  bottom:0;
+  right: 50%;
+}
+.round-button:hover {
+  background: #262626;
+}
+.round-button img {
+  display: block;
+  width: 76%;
+  padding: 12%;
+  height: auto;
+}
+
+.middle_height {
+  position: absolute;
+  top: 50%;
+}

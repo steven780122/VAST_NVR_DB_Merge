@@ -1,0 +1,140 @@
+<% require 'open-uri' %>
+
+<h1>VAST Device Pack 資料庫 2.0<span>Serach、SOC Compare &amp; Update</span></h1>
+<em style="color: mediumblue">Compare Result:</em>
+<br>
+
+<div class="container_for_cam_update">
+  <%# Rails.logger.debug("TEST TIME1!!!!!!!!!!!: #{params[:start_show_soc_info_index_time].to_datetime.inspect}") %>
+
+
+  <%#= time1 = Time.now %>
+  <%#= time1 %>
+
+  <%# url = "http://172.19.16.106/toolkits/add_record?name=VAST_DevicePack_Database_2.0&function="+ "test" + "&duration=" + "7.0" %>
+  <%# response = open(url) {|io| io.read} %>
+
+
+  <% selected_cam_num = @selected_indexed_hash.length %>
+
+  <table border="2" class="show_table">
+    <tbody>
+    <tr>
+      <td>
+      </td>
+
+      <td>
+        SOC
+      </td>
+
+      <td colspan="<%= @selected_indexed_hash.length.to_s %>">
+        Selected Compare Camera
+      </td>
+
+    </tr>
+
+    <% CctVastDb::Camera.column_names.each do |column_name| %>
+
+        <!-- if the column is not necessary   -->
+        <% next if column_name == "id" || column_name == "created_at" || column_name == "updated_at" %>
+
+        <tr>
+          <td>
+            <%= column_name %>
+          </td>
+
+          <!--original-->
+          <!--<td>-->
+            <!--<%# db_soc_column_array = eval("@db_" + column_name) %>-->
+            <!--<%#= db_soc_column_array.join(',') %>-->
+          <!---->
+          <!--</td>-->
+
+          <td>
+            <% db_soc_column_array = eval("@db_" + column_name) %>
+            <%# Rails.logger.debug("TEST union str0!!!!!!: #{db_soc_column_array.inspect}") %>
+            <% db_soc_column_union_str = db_soc_column_array.join(',') %>
+            <%# Rails.logger.debug("TEST union str!!!!!!: #{db_soc_column_union_str.inspect}") %>
+            <% transferred_db_soc_column_union_str = CctVastDb::Camera.transfer_union_string_for_compare_soc(db_soc_column_union_str) %>
+            <!--OK-->
+            <%# Rails.logger.debug("TEST union str2!!!!!: #{transferred_db_soc_column_union_str.inspect}") %>
+            <% is_hash, transferred_union_hash_or_str = CctVastDb::Camera.transfer_string_to_hash(transferred_db_soc_column_union_str) %>
+            <%# Rails.logger.debug("TEST union is_hash!!!!!: #{is_hash.inspect}") %>
+            <%# Rails.logger.debug("TEST union transferred_hash!!!!!: #{transferred_hash.inspect}") %>
+            <% if is_hash %>
+                <% transferred_hash_to_html = CctVastDb::Camera.export_transferred_hash_to_html(transferred_union_hash_or_str) %>
+                <%= raw transferred_hash_to_html %>
+            <% else %>
+                <%= transferred_union_hash_or_str %>
+            <% end %>
+
+          </td>
+
+          <!--import cam-->
+          <% selected_cam_num.times do |index| %>
+              <td>
+                <% indexed_cam_column_str = @selected_indexed_hash[index][column_name] %>
+
+                <%# Rails.logger.debug("TEST indexed_cam_column_str!!!!!!: #{indexed_cam_column_str.inspect}") %>
+
+                <% transferred_db_cam_column_union_str = CctVastDb::Camera.transfer_union_string_for_compare_soc(indexed_cam_column_str) %>
+                <% is_hash, transferred_cam_hash_or_str = CctVastDb::Camera.transfer_string_to_hash(transferred_db_cam_column_union_str) %>
+                <% if is_hash %>
+                    <%# transferred_cam_hash_to_html = Camera.export_transferred_hash_to_html(transferred_cam_hash_or_str) %>
+                    <%#= raw transferred_cam_hash_to_html %>
+
+                    <% after_updating_html =
+                           CctVastDb::Camera.update_cam_different_html_from_hash(transferred_union_hash_or_str, transferred_cam_hash_or_str) %>
+
+                    <%# Rails.logger.debug("TEST union is_hash!!!!!: #{after_updating_html.inspect}") %>
+                    <%#= "TEST!!!" %>
+                    <%= raw after_updating_html %>
+
+                <!--if the the column of cam is string-->
+                <% else %>
+
+
+                    <% after_updating_html =
+                           CctVastDb::Camera.update_cam_different_html_from_string(transferred_union_hash_or_str, transferred_cam_hash_or_str) %>
+
+                    <%# Rails.logger.debug("TEST union is_hash!!!!!: #{after_updating_html.inspect}") %>
+                    <%#= "TEST!!!" %>
+                    <%= raw after_updating_html %>
+
+                    <%#= transferred_cam_hash_or_str %>
+                <% end %>
+
+
+                <%# indexed_cam_column_array = TestSocCamera.get_array_from_string(indexed_cam_column_str) %>
+                <%# final_test_cam_str = TestSocCamera.update_different_html_tag(db_soc_column_array, indexed_cam_column_array) %>
+                <%#= raw final_test_cam_str %>
+              </td>
+          <% end %>
+          <tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <!--count duration-->
+  <% start_show_soc_info_index_time = params[:start_show_soc_info_index_time].to_datetime %>
+  <% end_show_soc_info_index_time = Time.now %>
+
+  <% if start_show_soc_info_index_time < end_show_soc_info_index_time %>
+    <% time_diff = end_show_soc_info_index_time - start_show_soc_info_index_time %>
+    <% url = "http://172.19.16.106/toolkits/add_record?name=VAST_DevicePack_Database_2.0&function="+ "show_soc_info" + "&duration=" + time_diff.to_s %>
+    <% open(url) {|io| io.read} %>
+  <% end %>
+
+
+
+  <!--response =-->
+
+</div>
+<br><br><br><br><br>
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+

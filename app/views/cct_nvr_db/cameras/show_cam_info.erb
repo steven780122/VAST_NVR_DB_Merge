@@ -1,0 +1,186 @@
+<!--by keyword-->
+<h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+<% if @checked_model_array %>
+    <div class="container_for_cam_update">
+
+      <div>
+
+        <% db_camera_name_obj_array = @db_camera_name_obj_array %>
+
+        <em style="color: mediumblue">Camera Info:</em>
+        <br>
+
+
+        <table class="show_table">
+
+          <thead>
+          <td>
+
+          </td>
+
+          <td colspan="<%= db_camera_name_obj_array.length.to_s %>">
+            Selected DB Camera
+          </td>
+
+          </thead>
+
+          <tbody>
+          <td></td>
+          <!--print camera name-->
+          <% for index in 0..db_camera_name_obj_array.length-1 %>
+
+              <% model_name_str = db_camera_name_obj_array[index]["Model_FW_name"] %>
+                <td class="tbody_title"><%= model_name_str %></td>
+          <% end %>
+
+          <% CctNvrDb::Camera.column_names.each do |column_name| %>
+
+              <tr>
+                <td><%= column_name %></td>
+
+                <% for index in 0..db_camera_name_obj_array.length-1 %>
+                    <!--find by id-->
+                    <% db_model_fw_cam = CctNvrDb::Camera.find(db_camera_name_obj_array[index]) %>
+
+                    <!--to_s because 'id' is integer-->
+                    <% db_model_fw_cam_str = db_model_fw_cam[column_name].to_s %>
+
+                    <td><%= db_model_fw_cam_str %></td>
+
+                <% end %>
+
+              </tr>
+
+          <% end %>
+
+          </tbody>
+        </table>
+
+
+        <!--<div>-->
+          <!--<br>-->
+          <!--<em style="color: mediumblue">Camera Other Info:</em>-->
+          <!--<br>-->
+          <!--<table border="2">-->
+            <!--<tbody>-->
+              <!--<%# db_camera_name_obj_array.each do |db_cam_info_obj| %>-->
+                  <!--&lt;!&ndash;camera's child table&ndash;&gt;-->
+                <!--<%# if !db_cam_info_obj.camera_other_infos.empty? %>-->
+                  <!--<%# db_cam_info_obj.camera_other_infos.each do |other_info_model| %>-->
+                    <!--<%# CameraOtherInfo.column_names.each do |other_info_column| %>-->
+                        <!--<tr>-->
+                          <!--<td><%#= other_info_column %></td>-->
+                          <!--<td><%#= other_info_model[other_info_column] %></td>-->
+                        <!--</tr>-->
+                    <!--<%# end %>-->
+                        <!--<tr class = blank_row><td colspan="2"></td>-->
+                        <!--</tr>-->
+                    <!--<%#= other_info_model["Tester"] %>-->
+                  <!--<%# end %>-->
+                <!--<%# end %>-->
+              <!--<%# end %>-->
+          <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!----------for test------------->
+
+        <div>
+          <br>
+          <em style="color: mediumblue">Camera Other Info:</em>
+          <br>
+
+          <table border="2">
+            <tbody>
+
+            <% CctNvrDb::CameraOtherInfo.column_names.each do |cam_other_info_column_str| %>
+
+              <tr>
+                <td>
+                  <%= cam_other_info_column_str %>
+                </td>
+
+
+                <% db_camera_name_obj_array.each do |db_cam_info_obj| %>
+
+                    <% if !db_cam_info_obj.cct_nvr_db_camera_other_infos.empty? %>
+                        <% db_cam_info_obj.cct_nvr_db_camera_other_infos.each do |other_info_model| %>
+                            <td>
+                              <%= other_info_model[cam_other_info_column_str] %>
+                            </td>
+                        <% end %>
+                    <% end %>
+                <% end %>
+              </tr>
+
+            <% end %>
+
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+
+        <!----------------------->
+
+
+
+
+        <!--&lt;!&ndash;the following is for test (no association)&ndash;&gt;-->
+        <!--<table border="2">-->
+          <!--<tbody>-->
+
+          <!--<br>-->
+
+          <!--<tr>Other Info:</tr>-->
+
+          <!--<%# db_camera_name_obj_array.each do |db_camera_obj| %>-->
+
+            <!--<%# selected_camera_other_fw_s = CameraOtherInfo.where(:Model_FW_name => db_camera_obj["Model_FW_name"]) %>-->
+            <!--<tr>-->
+              <!--<%# selected_camera_other_fw_s.each do |selected_camera_other_fw| %>-->
+
+                  <!--<%# selected_camera_other_fw.attributes.each do |attribute_name, attribute_value|%>-->
+                    <!--<tr>-->
+                      <!--<td><%#= attribute_name %></td>-->
+                      <!--<td><%#= attribute_value %></td>-->
+                    <!--<tr>-->
+                <!--<%# end %>-->
+                <!--<tr class = blank_row><td colspan="2"></td>-->
+                <!--</tr>-->
+
+            <!--<%# end %>-->
+
+          <!--<%# end %>-->
+
+          <!--</tbody>-->
+        <!--</table>-->
+
+        <!--<%# @db_camera_name_obj_array.each do |db_obj_cam| %>-->
+
+          <!--<%#= Camera.find_by_Model_FW_name(db_obj_cam["Model_FW_name"]).camera_other_infos %>-->
+        <!--<%# end %>-->
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+      </div>
+
+
+<% else %>
+    <div>
+      not in db!!
+    </div>
+<% end %>
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+</div>

@@ -1,0 +1,2 @@
+module CctVastDb::TestSocCamerasHelper
+end

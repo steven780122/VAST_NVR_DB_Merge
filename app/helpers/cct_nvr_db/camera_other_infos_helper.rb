@@ -1,0 +1,2 @@
+module CctNvrDb::CameraOtherInfosHelper
+end

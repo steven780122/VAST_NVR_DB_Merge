@@ -1,0 +1,28 @@
+<div class="center_item">
+  <h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+
+  <ol>
+    <strong style="font-size: x-large">Export  "total_camera_info.csv"</strong>
+    <br>
+    <%= link_to "Download CSV", cct_nvr_db_cameras_path(format: "csv") %>
+
+    <br>
+    <br>
+    <br>
+
+
+    <strong style="font-size: x-large">Export  "total_camera_other_info.csv"</strong>
+    <br>
+    <%= link_to "Download CSV", cct_nvr_db_camera_other_infos_path(format: "csv") %>
+
+  </ol>
+</div>
+
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+    <!--<img src="/home_alt.png" alt="Home" />-->
+    <%#= image_tag("home_alt.png", alt: "Home") %>
+  </a>
+</div>

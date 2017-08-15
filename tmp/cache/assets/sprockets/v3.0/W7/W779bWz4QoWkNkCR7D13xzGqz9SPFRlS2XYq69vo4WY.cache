@@ -1,0 +1,19 @@
+I"¤(function() {
+  var paintIt;
+
+  paintIt = function(element, link) {
+    return element.href = link;
+  };
+
+  $(function() {
+    return $("button[data-create-db-path]").click(function(e) {
+      var link, target_ele;
+      e.preventDefault();
+      link = $(this).data("create-db-path");
+      target_ele = document.getElementById("TEST_CREATE_VAST");
+      return paintIt(target_ele, link);
+    });
+  });
+
+}).call(this);
+:ET

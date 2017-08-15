@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <head>
+    <!--<meta http-equiv="refresh" content="1" >-->
+
+  </head>
+  <%= stylesheet_link_tag 'application' %>
+
+</head>
+<body>
+
+<div class="center_item">
+  <h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+
+  <div>
+    <h1>Search for SOC</h1>
+
+    <!--import CSV-->
+    <ol>
+      <li>
+      <li>
+        <em style="color: mediumblue">Step1.</em> Select csv File to New or Update DB.(through nvr transfer tool)
+      </li>
+      <br>
+
+      <%= form_tag import_cct_nvr_db_test_soc_cameras_path, multipart: true do %>
+          <%= file_field_tag :file_test_soc_camera, multiple: false %>
+          <%= submit_tag "Import CSV" , class:'normal_button', data: { disable_with: "Please wait.." }%>
+      <% end %>
+
+      </li>
+
+      <em>Note.</em> You can check model names in DB here.
+      <br>
+      <br>
+
+      <p>The Cameras you import are:<span class="tab"></span>
+      <%= select_tag :test_cam_array, options_for_select(@test_cam_array.sort!) %>
+
+      <br>
+      <br>
+      <br>
+
+        <!--this form is still for same page, and keep the soc value-->
+        <%= form_tag show_soc_info_index_cct_nvr_db_cameras_path, :method => 'get' do %>
+
+          <!--select SOC-->
+          <li>
+            <li>
+              <em style="color: mediumblue">Step2.</em> Select SOC you want to compare:
+            </li>
+          <br>
+          <br>
+
+            <p>Database SOC:<span class="tab"></span>
+              <!--prompt is for keep-->
+              <%= select_tag :search_soc_for_keep_on_index, options_for_select(@soc_array),
+                             prompt: params[:search_soc_for_keep_on_index] %>
+            </p>
+          </li>
+
+          <br>
+          <br>
+          <li>
+            <em style="color: mediumblue">Step3.</em> Select cameras you want to compare:
+          </li>
+          <br>
+
+          <!--By keyword!-->
+              <li>
+                <p>Search Database Camera (by Keyword):<span class="tab"></span>
+                  <%= text_field_tag :search_compare_cam_by_keyword, params[:search_compare_cam_by_keyword] %>
+                  <br>
+                  <%= submit_tag "Search", class:'normal_button', data: { disable_with: "Please wait.." }, :name => nil %>
+                </p>
+              </li>
+          <br>
+        <% end %>
+
+
+      <!--the following is processing-->
+      <% if @imported_keyword_models %>
+
+          ----------------------------------------------------------------------------------------------------
+          <br>
+          <em style="color: mediumblue">Search Results:</em>
+          <br>
+
+
+          <div id="tableContainer" class="tableContainer">
+
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="scrollTable">
+
+
+          <!--<table class="sortable" width="400">-->
+              <thead class="fixedHeader">
+
+                <tr>
+                  <th>Model</th>
+                  <th>SOC</th>
+                  <th>Checkbox</th>
+                </tr>
+
+              </thead>
+
+              <tbody class="scrollContent">
+
+                <%= form_tag show_soc_info_cct_nvr_db_cameras_path, :method => 'get' do %>
+
+                    <!--search_soc is value which is from same page just now -->
+                    <%= hidden_field_tag :search_soc, params[:search_soc_for_keep_on_index] %>
+
+                    <% @imported_keyword_models.each do |import_camera| %>
+                        <% model_fw_name_str = import_camera["Model_FW_name"] %>
+                        <tr>
+                          <td><%= model_fw_name_str %></td>
+                          <td><%= import_camera["Soc"] %></td>
+                          <td><%= check_box_tag 'check_box_ids_array[]' , import_camera.id %></td>
+                        </tr>
+
+                    <% end %>
+
+                    <tr>
+                      <td>
+                        <%= submit_tag "Next", class:'normal_button', data: { disable_with: "Please wait.." }, :name => nil %>
+                      </td>
+                    </tr>
+                <% end %>
+
+              </tbody>
+            </table>
+
+          </div>
+
+      <% end %>
+
+    </ol>
+
+  </div>
+
+</div>
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+
+
+
+</body>
+</html>

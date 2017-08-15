@@ -1,0 +1,35 @@
+<h1>VAST Device Pack 資料庫 2.0<span>Serach、SOC Compare &amp; Update</span></h1>
+<div class="center_item">
+
+<ol>
+  <li>上傳total_camera_info.csv</li>
+  <%= form_tag import_cct_vast_db_cameras_path, multipart: true do %>
+      <%= file_field_tag :file_cameras, multiple: false %>
+
+      <%= submit_tag "Import CSV" , data: { disable_with: "Please wait.." }, class: 'normal_button',
+                     data: { confirm: '將覆蓋舊有camera info，確定執行？', disable_with: "Please wait.."}%>
+  <% end %>
+
+  <br>
+  <br>
+
+
+  <li>上傳dp_others_info.csv</li>
+  <%= form_tag import_cct_vast_db_camera_other_infos_path, multipart: true do %>
+      <%= file_field_tag :file_camera_others, multiple: false %>
+      <%= submit_tag "Import CSV" , data: { disable_with: "Please wait.." }, class: 'normal_button',
+                     data: { confirm: '將覆蓋舊有other info，確定執行？', disable_with: "Please wait.."} %>
+  <% end %>
+  <!---------------->
+
+</ol>
+  </div>
+
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+    <!--<img src="/home_alt.png" alt="Home" />-->
+    <%#= image_tag("home_alt.png", alt: "Home") %>
+  </a>
+</div>

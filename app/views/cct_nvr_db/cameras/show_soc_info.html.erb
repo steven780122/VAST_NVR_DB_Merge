@@ -1,0 +1,130 @@
+<h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+
+<em style="color: mediumblue">Compare Result:</em>
+<br>
+
+<div class="container_for_cam_update">
+  <% selected_cam_num = @selected_indexed_hash.length %>
+
+  <table border="2" class="show_table">
+    <tbody>
+    <tr>
+      <td>
+      </td>
+
+      <td>
+        SOC
+      </td>
+
+      <td colspan="<%= @selected_indexed_hash.length.to_s %>">
+        Selected Compare Camera
+      </td>
+
+    </tr>
+
+    <% CctNvrDb::Camera.column_names.each do |column_name| %>
+
+        <!-- if the column is not necessary   -->
+        <% next if column_name == "id" || column_name == "created_at" || column_name == "updated_at" %>
+
+        <tr>
+          <td>
+            <%= column_name %>
+          </td>
+
+          <td>
+            <% db_soc_column_array = eval("@db_" + column_name) %>
+            <%= db_soc_column_array.join(',') %>
+          </td>
+
+          <% selected_cam_num.times do |index| %>
+
+              <td>
+                <% indexed_cam_column_str = @selected_indexed_hash[index][column_name] %>
+                <% indexed_cam_column_array = CctNvrDb::TestSocCamera.get_array_from_string(indexed_cam_column_str) %>
+                <% final_test_cam_str = CctNvrDb::TestSocCamera.update_different_html_tag(db_soc_column_array, indexed_cam_column_array) %>
+                <%= raw final_test_cam_str  %>
+              </td>
+
+          <% end %>
+
+          <tr>
+
+    <% end %>
+
+    </tbody>
+  </table>
+
+</div>
+<br><br><br><br><br>
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+
+
+<!--<%#= @soc_name_str %>-->
+
+<!--<html>-->
+<!--<head>-->
+
+  <!--<head>-->
+
+  <!--</head>-->
+  <!--<%#= stylesheet_link_tag 'application' %>-->
+
+<!--</head>-->
+<!--<body>-->
+
+<!--<table border="2">-->
+  <!--<tbody>-->
+    <!--<tr>-->
+      <!--<td>-->
+      <!--</td>-->
+
+      <!--<td>-->
+        <!--SOC-->
+      <!--</td>-->
+
+      <!--<td>-->
+        <!--Camera-->
+      <!--</td>-->
+
+
+    <!--</tr>-->
+
+    <!--<%# Camera.column_names.each do |column_name| %>-->
+
+        <!--&lt;!&ndash; if the column is not necessary   &ndash;&gt;-->
+        <!--<%# next if column_name == "id" || column_name == "created_at" || column_name == "updated_at" %>-->
+
+
+        <!--<tr>-->
+          <!--<td>-->
+            <!--<%#= column_name %>-->
+          <!--</td>-->
+
+          <!--<td>-->
+            <!--<%# db_soc_column_array = eval("@db_" + column_name) %>-->
+            <!--<%#= db_soc_column_array.join(',') %>-->
+          <!--</td>-->
+
+          <!--<td>-->
+            <!--&lt;!&ndash;use update_different_html_tag compare function to get updated html text&ndash;&gt;-->
+            <!--<%# test_cam_column_array = eval("@test_cam_" + column_name) %>-->
+            <!--<%# final_test_cam_str = TestSocCamera.update_different_html_tag(db_soc_column_array, test_cam_column_array) %>-->
+            <!--<%#= raw final_test_cam_str %>-->
+          <!--</td>-->
+        <!--<tr>-->
+
+    <!--<%# end %>-->
+
+  <!--</tbody>-->
+<!--</table>-->
+
+<!--<br>-->
+<!--<br>-->
+<!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--<br>-->

@@ -1,0 +1,204 @@
+<h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+<!--by option-->
+  <% if @selected_camera_model_fw_name %>
+      <% selected_model_fw_cam = CctNvrDb::Camera.find_by_Model_FW_name(@selected_camera_model_fw_name) %>
+      <%= selected_model_fw_cam["Model_FW_name"] %><br>
+      <%= selected_model_fw_cam["Soc"] %>
+      TEST1 <br>
+  <% end %>
+
+  <!--by keyword-->
+  <% if @checked_model_array %>
+  <div class="container_for_cam_update">
+
+       <!---->
+       <div>
+
+
+         <!--get every db's column name-->
+         <%# camera_db_columns_array = Camera.column_names %>
+
+         <!--put this in controller and model-->
+
+         <% db_camera_name_obj_array = @db_camera_name_obj_array %>
+         <% import_cameras_obj_array = @import_cameras_obj_array %>
+
+         <table class="show_table">
+
+           <thead>
+             <td>
+
+             </td>
+
+             <td colspan="<%= db_camera_name_obj_array.length.to_s %>">
+               Selected DB Camera
+             </td>
+
+             <td class="import_camera_title" colspan="<%= import_cameras_obj_array.length.to_s %>">
+               Import Camera
+             </td>
+
+           </thead>
+
+           <tbody>
+              <td></td>
+              <!--print camera name-->
+              <% for index in 0..db_camera_name_obj_array.length-1 %>
+
+                <% model_name_str = db_camera_name_obj_array[index]["Model_FW_name"] %>
+
+                <% if !CctNvrDb::Camera.if_excluded_model_name_html(model_name_str, import_cameras_obj_array) %>
+                    <td class="tbody_title thead_value_different"><%=  model_name_str %></td>
+                <% else %>
+                    <td class="tbody_title"><%= model_name_str %></td>
+                <% end %>
+
+              <% end %>
+
+
+              <% for index in 0..import_cameras_obj_array.length-1 %>
+                <% import_model_name_str = import_cameras_obj_array[index]["Model_FW_name"] %>
+
+                <% if !CctNvrDb::Camera.if_excluded_model_name_html(import_model_name_str, db_camera_name_obj_array) %>
+                    <td class="to_update_column value_different import_camera_title"><%=  import_model_name_str %></td>
+                <% else %>
+                    <td class="to_update_column import_camera_title"><%= import_model_name_str %></td>
+                <% end %>
+
+
+
+              <% end %>
+
+
+              <% CctNvrDb::Camera.column_names.each do |column_name| %>
+
+                <tr>
+                  <td><%= column_name %></td>
+
+                  <% for index in 0..db_camera_name_obj_array.length-1 %>
+                      <!--finf by id-->
+                      <% db_model_fw_cam = CctNvrDb::Camera.find(db_camera_name_obj_array[index]) %>
+
+                      <!--to_s because 'id' is integer-->
+                      <% db_model_fw_cam_str = db_model_fw_cam[column_name].to_s %>
+                      <% db_model_fw_name_str = db_model_fw_cam["Model_FW_name"].to_s %>
+
+
+                      <!--..........print after update db camera info html..................-->
+                      <!--get same camera's import camera column info-->
+                      <% import_cam_str = "" %>
+
+                      <% db_model_without_fw_cam_str = CctNvrDb::Camera.get_model_name_without_fw(db_model_fw_name_str) %>
+
+                      <% import_cameras_obj_array.each do |import_update_camera| %>
+                          <!--to_s because 'id' is integer-->
+                          <!--rewrite-->
+                          <% if import_update_camera["Model_FW_name"] == db_model_without_fw_cam_str %>
+
+                              <% import_cam_str = import_update_camera[column_name].to_s %>
+
+                          <% else %>
+                            <% next %>
+
+                          <% end %>
+
+                      <% end %>
+
+
+                      <% if column_name != "id" and column_name != "Model_FW_name" and column_name != "Soc" \
+                           and column_name != "created_at" and column_name != "updated_at" %>
+                        <% db_model_fw_cam_str = CctNvrDb::ShowCamInfoAndUpdate.update_different_html_tag2(import_cam_str, db_model_fw_cam_str) %>
+                      <% end %>
+
+                      <td><%= raw db_model_fw_cam_str %></td>
+
+                  <% end %>
+
+                  <% for index in 0..import_cameras_obj_array.length-1 %>
+                      <% import_cams_content_str = import_cameras_obj_array[index][column_name].to_s %>
+                      <td><%= import_cams_content_str %></td>
+                  <% end %>
+
+                </tr>
+
+              <% end %>
+
+            </tbody>
+          </table>
+
+       </div>
+
+    <div class="flex-column" style="margin-left: 25px">
+      <br>
+      <br>
+      <section>
+        <p>‧更新Soc:</p>
+
+        <%= form_tag({:controller => 'cameras', :action => 'update_soc'}, :method => :patch) do %>    <!--OK-->
+
+            <%= select_tag :soc_to_be_updated, options_for_select(@soc_array) %>
+            <%= hidden_field_tag :soc_to_be_updated_id_array, @checked_model_id_array %>
+            <br>
+            <%= button_to "更新Soc", {},
+                          {class: 'normal_button', data: { confirm: '將更新所選Soc，確定執行？' }} %>
+
+        <% end %>
+
+      </section>
+
+      <br>
+      <br>
+
+      <section>
+        <p>‧更新Camera Info:</p>
+
+        <!--refactor later: put cam_to_test_hasg_hash into controller and model-->
+
+
+        <%= form_tag({:controller => 'cameras', :action => 'update'}, :method => :patch) do %>    <!--OK-->
+
+            <% cam_to_add_test_hash_hash = CctNvrDb::ShowCamInfoAndUpdate.get_selected_to_update_cam_without_soc_hash_hash(
+                db_camera_name_obj_array, import_cameras_obj_array) %>
+
+            <% cam_to_add_test_hash_hash.each do |key, value| %>
+            <%= hidden_field_tag "test_hashhash[][#{key}]", value %>
+            <% end %>
+            <br>
+            <%= button_to "更新Camera Info", {},
+                          {class:'normal_button', data: { confirm: '將更新所選Soc，確定執行？' }} %>
+
+        <% end %>
+
+      </section>
+
+    </div>
+
+    <!--test -->
+    <!--<div class="flex-column" style="margin-left: 25px">-->
+      <!--<section>-->
+        <!--<p>TEST2!!!</p>-->
+        <!--<%#= debug @@get_id_with_caminfo_hash %>-->
+      <!--</section>-->
+    <!--</div>-->
+
+    <!--if not any model in db, new here!-->
+  <% else %>
+       <div>
+        not in db!!
+       </div>
+  <% end %>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="round-button">
+
+      <a href=<%= new_and_update_cam_info_index_cct_nvr_db_cameras_path %>>
+        Back
+      </a>
+    </div>
+
+  </div>

@@ -1,0 +1,29 @@
+I"p(function() {
+  var paintIt;
+
+  paintIt = function(element, backgroundColor, textColor, link) {
+    element.style.backgroundColor = backgroundColor;
+    if (textColor != null) {
+      element.style.color = textColor;
+    }
+    if (link != null) {
+      return element.href = link;
+    }
+  };
+
+  $(function() {
+    return $("a[data-background-color]").click(function(e) {
+      var backgroundColor, link, target_ele, textColor;
+      e.preventDefault();
+      backgroundColor = $(this).data("background-color");
+      textColor = $(this).data("text-color");
+      link = $(this).data("target-link");
+      console.log(backgroundColor + "backgroundColor !!!!!!!!!!!!!!!!");
+      console.log(textColor + "textColor!!!!!!!!!!!!!!!!");
+      target_ele = document.getElementById("XD");
+      return paintIt(target_ele, backgroundColor, textColor, link);
+    });
+  });
+
+}).call(this);
+:ET

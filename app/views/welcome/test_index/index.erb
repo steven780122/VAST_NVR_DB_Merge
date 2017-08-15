@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <head>
+    <title>VAST Device Pack資料庫</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative CSS3 Animation Menus" />
+    <meta name="keywords" content="menu, navigation, animation, transition, transform, rotate, css3, web design, component, icon, slide" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/style8.css" />
+    <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis' rel='stylesheet' type='text/css' />
+
+  </head>
+  <%= stylesheet_link_tag 'application' %>
+
+</head>
+<body>
+
+<div>
+  <div class="container">
+    <br>
+    <br>
+    <br>
+    <h1>TEST!!!!!!!!!!!!!!!!!VAST Device Pack 資料庫 2.0<span>Serach、SOC Compare &amp; Update</span></h1>
+
+
+    <a href="#" id="XD2" data-background-color="#990000"
+            data-create_db_path="<%= create_database_index_cct_vast_db_cameras_path %>"
+            data-show_cam_path="<%= show_cam_info_index_cct_vast_db_cameras_path(@cameras) %>"
+            data-show_soc_path="<%= show_soc_info_index_cct_vast_db_cameras_path %>"
+            data-new_and_update_path="<%= new_and_update_cam_info_index_cct_vast_db_cameras_path %>"
+            data-export_csv_path="<%= export_csv_index_cct_vast_db_cameras_path %>"
+    >VAST</a>
+    <br>    <br>    <br>
+
+    <a href="#" id="XD2" data-background-color="#990000"
+            data-create_db_path="<%= create_database_index_cct_nvr_db_cameras_path %>"
+            data-show_cam_path="<%= show_cam_info_index_cct_nvr_db_cameras_path(@cameras) %>"
+            data-show_soc_path="<%= show_soc_info_index_cct_nvr_db_cameras_path %>"
+            data-new_and_update_path="<%= new_and_update_cam_info_index_cct_nvr_db_cameras_path %>"
+            data-export_csv_path="<%= export_csv_index_cct_nvr_db_cameras_path %>"
+    >NVR</a>
+
+    <br>
+
+
+    <!--<button name="button" class="vast_button"-->
+            <!--data-create_db_path="<%#= create_database_index_cct_vast_db_cameras_path %>"-->
+            <!--data-show_cam_path="<%#= show_cam_info_index_cct_vast_db_cameras_path(@cameras) %>"-->
+            <!--data-show_soc_path="<%#= show_soc_info_index_cct_vast_db_cameras_path %>"-->
+            <!--data-new_and_update_path="<%#= new_and_update_cam_info_index_cct_vast_db_cameras_path %>"-->
+            <!--data-export_csv_path="<%#= export_csv_index_cct_vast_db_cameras_path %>"-->
+    <!--&gt;VAST</button>-->
+    <!---->
+
+    <!--<button name="button" class="nvr_button"-->
+            <!--data-create_db_path="<%#= create_database_index_cct_nvr_db_cameras_path %>"-->
+            <!--data-show_cam_path="<%#= show_cam_info_index_cct_nvr_db_cameras_path(@cameras) %>"-->
+            <!--data-show_soc_path="<%#= show_soc_info_index_cct_nvr_db_cameras_path %>"-->
+            <!--data-new_and_update_path="<%#= new_and_update_cam_info_index_cct_nvr_db_cameras_path %>"-->
+            <!--data-export_csv_path="<%#= export_csv_index_cct_nvr_db_cameras_path %>"-->
+    <!--&gt;NVR</button>-->
+
+
+    <!--&lt;!&ndash;<button name="button" class="test_button" type="submit" >Button</button>&ndash;&gt;  OK-->
+
+
+
+
+    <!--<a href="http://google.com" id="XD">TEST LINK</a>-->
+    <!--&lt;!&ndash;<a href="http://google.com" rel="group" data-wpurl="http://yahoo.com" >CLICK HERE</a>&ndash;&gt;-->
+
+    <!--<a href="http://google.com" id="XD2" data-background-color="#990000">Paint it red</a>-->
+    <!--<br>-->
+    <!--<a href="#" data-background-color="#009900" data-text-color="#FFFFFF" id="XD3"-->
+       <!--data-target-link="<%#= create_database_index_cct_vast_db_cameras_path %>"  >Paint it green</a>-->
+    <!--<br>-->
+    <!--<a href="#" data-background-color="#000099" data-text-color="#FFFFFF">Paint it blue</a>-->
+
+
+    <!--<div class="centered">-->
+    <div class="content">
+      <ul class="ca-menu">
+        <li>
+          <a id="create_db_path_id" href=<%= create_database_index_cct_vast_db_cameras_path %> >
+            <span class="ca-icon" id="red_icon">S</span>
+            <div class="ca-content">
+              <h2 class="ca-main">建立資料庫</h2>
+              <h3 class="ca-sub">建立initial資料庫(慎用)</h3>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a id="show_cam_path_id" href=<%= show_cam_info_index_cct_vast_db_cameras_path(@cameras) %>>
+            <span class="ca-icon">F</span>
+            <div class="ca-content">
+              <h2 class="ca-main">顯示資料庫</h2>
+              <h3 class="ca-sub">顯示資料庫中model內容</h3>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a id="show_soc_path_id" href=<%= show_soc_info_index_cct_vast_db_cameras_path %>>
+            <span class="ca-icon" >J</span>
+            <div class="ca-content">
+              <h2 class="ca-main">SOC平台比對</h2>
+              <h3 class="ca-sub">比對Soc與Camera</h3>
+            </div>
+          </a>
+        </li>
+        <li>
+          <!--<a href=<%#= update_cam_info_index_cameras_path  %>>-->
+
+          <a id="new_and_update_path_id" href=<%= new_and_update_cam_info_index_cct_vast_db_cameras_path  %>>
+
+            <span class="ca-icon">L</span>
+            <div class="ca-content">
+              <h2 class="ca-main">新增、更新Camera/新增Other Info</h2>
+              <h3 class="ca-sub">camera及版本等資訊</h3>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a id="export_csv_path_id" href=<%= export_csv_index_cct_vast_db_cameras_path %>>
+            <span class="ca-icon">A</span>
+            <div class="ca-content">
+              <h2 class="ca-main">備份資料庫</h2>
+              <h3 class="ca-sub">輸出至csv檔以備份資料庫</h3>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <br>
+
+
+
+    </div>
+    <!--</div>-->
+
+  </div>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+</div>
+
+
+
+</body>
+</html>

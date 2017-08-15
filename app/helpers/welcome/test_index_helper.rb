@@ -1,0 +1,2 @@
+module Welcome::TestIndexHelper
+end

@@ -1,0 +1,24 @@
+I"Ð(function() {
+  var paintIt;
+
+  paintIt = function(element, backgroundColor, textColor) {
+    element.style.backgroundColor = backgroundColor;
+    if (textColor != null) {
+      return element.style.color = textColor;
+    }
+  };
+
+  $(function() {
+    return $("a[data-background-color]").click(function(e) {
+      var backgroundColor, textColor;
+      e.preventDefault();
+      backgroundColor = $(this).data("background-color");
+      textColor = $(this).data("text-color");
+      console.log(backgroundColor + "backgroundColor !!!!!!!!!!!!!!!!");
+      console.log(textColor + "textColor!!!!!!!!!!!!!!!!");
+      return paintIt(document.getElementById("XD"), backgroundColor, textColor);
+    });
+  });
+
+}).call(this);
+:ET

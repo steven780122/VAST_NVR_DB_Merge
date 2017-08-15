@@ -1,0 +1,129 @@
+<%# CameraOtherInfo.all.each do |cam_other_info| %>
+
+    <%#= cam_other_info["Model_FW_name"] %>
+    <!--<br>-->
+<%# end %>
+<h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+
+<div class="center_item">
+
+  <div class="notice_item">
+    <%= flash[:issue_sw_nvr_array_notice] %>
+  </div>
+
+  <%# if !@checked_model_for_other_info_name_str_array %>
+
+  <p>The model names you want to add other info are: </p>
+  <% @checked_model_for_other_info_name_str_array.each do |select_model_str| %>
+  <%= select_model_str %>
+  <% end %>
+
+  <%# end %>
+
+  <%= form_tag({:controller => 'cameras', :action => 'create_camera_other_info'}, :method => :post) do %>
+
+      <br><br>
+
+      <%= hidden_field_tag "selected_model_name", @checked_model_for_other_info_name_str_array %>
+      <%= hidden_field_tag :sw_nvr_array, @sw_nvr_array %>
+      <div>
+
+        <%= label_tag :FW_Ver, 'FW Version' %>
+        <br>
+        <%= text_field_tag :FW_Ver, nil,:placeholder => "ex, 0100a" %>
+        <br><br>
+
+        <!--<p>SW/NVR</p>-->
+        <!--<%#= select_tag :SW_NVR, options_for_select(@sw_nvr_array, '') %>-->
+        <!--<br><br>-->
+
+        <p>SW/NVR & 版號:</p>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table_otherinfo_sw">
+          <tr>
+            <th>Model</th>
+            <th>Checkbox</th>
+            <th>Ver.</th>
+          </tr>
+
+
+          <% @sw_nvr_array.each do |sw_nvr| %>
+              <tr>
+                <td><%= label_tag :TEST11, sw_nvr %></td>
+                <td><%= check_box_tag (sw_nvr+"_box").to_sym %></td>
+                <td><%= text_field_tag sw_nvr.to_sym, nil, :placeholder => "ex, 1.1.0.4"%></td>
+              </tr>
+
+              <!--to_sym -->
+          <% end %>
+
+        </table>
+        <br>
+
+        <!--<%#= label_tag :SW_NVR, 'SW/NVR' %>-->
+        <!--<br>-->
+        <!--<%#= text_field_tag :SW_NVR, nil,:placeholder => "ex, NVR" %>-->
+        <!--<br><br>-->
+
+        <!--<br>-->
+        <!--<%#= label_tag :SW_NVR_Ver, 'SW/NVR Version' %>-->
+        <!--<br>-->
+        <!--<%#= text_field_tag :SW_NVR_Ver, nil,:placeholder => "ex, 1.1.0.4"%>-->
+        <!--<br><br>-->
+
+
+        <%= label_tag :VDP_Ver, 'VDP Version' %>
+        <br>
+        <%= text_field_tag :VDP_Ver, nil,:placeholder => "ex, 5.9.31" %>
+        <br><br>
+
+        <%= label_tag :PKG_Ver, 'PKG Version' %>
+        <br>
+        <%= text_field_tag :PKG_Ver, nil,:placeholder => "ex, 1.1a.a1.2.3" %>
+        <br><br>
+
+
+        <p>Tester</p>
+        <%= select_tag :Tester, options_for_select(@tester_array, '') %>
+        <br><br>
+
+        <!--<%#= label_tag :Tester, 'Tester' %>-->
+        <!--<br>-->
+        <!--<%#= text_field_tag :Tester, nil,:placeholder => "ex, Ting Liao" %>-->
+        <!--<br><br>-->
+
+        <p>Pass/Fail</p>
+        <%= select_tag :Pass_Fail, options_for_select(@pass_fail_array, '') %>
+
+            <!--, prompt: params[:Pass_Fail] %>-->
+        <br><br>
+
+        <!--<%#= label_tag :Pass_Fail, 'Pass/Fail' %>-->
+        <!--<br>-->
+        <!--<%#= text_field_tag :Pass_Fail %>-->
+        <!--<br><br>-->
+
+
+        <%= label_tag :Note, 'Note' %>
+        <br>
+        <%= text_field_tag :Note %>
+
+        <br><br>
+
+        <%= button_to "Add to camera other info!", {},
+                      {class:'normal_button', data: { confirm: '將批次更新other infos進所選的cameras，確定執行？' }} %>
+
+
+
+      </div>
+
+
+  <% end %>
+
+
+</div>
+
+<div class="round-button">
+  <a href=<%= new_and_update_cam_info_index_cct_nvr_db_cameras_path %>>
+    Back
+  </a>
+</div>

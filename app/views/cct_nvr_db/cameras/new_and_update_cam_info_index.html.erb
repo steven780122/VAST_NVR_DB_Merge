@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <head>
+    <!--<meta http-equiv="refresh" content="1" >-->
+    <script src="sorttable.js"></script>
+
+  </head>
+  <%= stylesheet_link_tag 'application' %>
+
+</head>
+<body>
+
+<div class="center_item">
+
+
+  <div class="notice_item">
+    <%= flash[:new_and_update_notice] %>
+  </div>
+  <h1>NVR/Shepherd Device Pack 資料庫 <span>Serach、SOC Compare &amp; Update</span></h1>
+
+
+  <h1>New & Update for Camera Info </h1>
+
+  <!--import CSV-->
+  <ol>
+    <li>
+      <em style="color: mediumblue">Step1.</em> Select csv File to New or Update DB.(through nvr transfer tool)
+    </li>
+    <br>
+      <%= form_tag import_cct_nvr_db_show_cam_info_and_updates_path, multipart: true do %>
+          <%= file_field_tag :file_update_cam_info, multiple: false %>
+          <%= submit_tag "Import CSV", class:'normal_button', data: { disable_with: "Please wait.." }%>
+      <% end %>
+
+    <br>
+
+    <% if @import_update_cameras %>
+        <em>Note.</em> You can check model names you imported here.
+        <br>
+        <br>
+
+        <p>The Cameras you import are:<span class="tab"></span>
+          <%= select_tag :model_fw_name_option, options_for_select(@new_import_model_name_array.sort!) %>
+
+
+        <!--<b>The Cameras you import are:</b>-->
+        <!---->
+        <!--<%# @import_update_cameras.each do |to_update_camera| %>-->
+            <%#= to_update_camera["Model_FW_name"] %>
+        <!--<%# end %>-->
+
+        <br>
+        <br>
+    <% end %>
+    <!--:search_by_keyword-->
+    <li>
+      <em style="color: mediumblue">Step2.</em> New or Update DB
+    </li>
+    <br>
+
+    <%= button_to "新增", new_cam_info_index_cct_nvr_db_cameras_path, class: 'normal_button' %>
+
+    <%= button_to "更新", update_cam_info_index_cct_nvr_db_cameras_path, class: 'normal_button' %>
+
+    <br>
+
+    <li>
+
+      <em style="color: mediumblue">Step3.</em> New Camera Other Info
+      <%= button_to "新增Other Info", update_cam_other_info_index_cct_nvr_db_cameras_path, :method => 'get',
+                    class: 'normal_button' %>
+
+      <!--<a href=<%= update_cam_other_info_index_cct_nvr_db_cameras_path %>>-->
+
+          <!--</a>-->
+
+    </li>
+
+
+
+    <!--<a href="<%#= new_cam_info_index_cameras_path %>">新增!!</a>-->
+
+
+  </ol>
+
+
+
+
+</div>
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
+
+</body>
+</html>

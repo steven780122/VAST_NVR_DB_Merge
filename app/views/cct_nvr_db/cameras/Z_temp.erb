@@ -1,0 +1,45 @@
+<% CameraOtherInfo.all.each do |cam_other_info| %>
+
+    <%= cam_other_info["Model_FW_name"] %>
+    <br>
+<% end %>
+
+
+<div class="center_item">
+
+
+  <%= form_for @camera_other_info, :url => {:controller => 'cameras', :action => 'create_other_info'} do |f| %>
+      <%= f.label :Model_FW_name, "Model Name" %>
+      <%= f.text_field :Model_FW_name %>
+      <br><br>
+      <%= f.label :SW_NVR, "SW/NVR" %>
+      <%= f.text_field :SW_NVR %>
+      <br><br>
+      <%= f.label :SW_NVR_Ver, "SW/NVR Ver." %>
+      <%= f.text_field :SW_NVR_Ver%>
+      <br><br>
+      <%= f.label :VDP_Ver, "VDP Ver." %>
+      <%= f.text_field :VDP_Ver %>
+      <br><br>
+      <%= f.label :PKG_Ver, "PKG Ver." %>
+      <%= f.text_field :PKG_Ver %>
+      <br><br>
+      <%= f.label :Tester, "Tester" %>
+      <%= f.text_field :Tester %>
+      <br><br>
+      <%= f.label :Note, "Note" %>
+      <%= f.text_field :Note %>
+      <br><br>
+
+      <%= f.submit "Create New Other Info", class:'normal_button' %>
+
+  <% end %>
+
+</div>
+
+<div class="round-button">
+  <a href=<%= root_url %>>
+    Home
+  </a>
+</div>
+
